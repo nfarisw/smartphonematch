@@ -1,0 +1,62 @@
+# SmartPhoneMatch — enrutado de idioma. Cada URL sirve siempre el mismo
+# idioma (necesario para que hreflang funcione de verdad); el selector de
+# idioma y la home neutra (index.php) son los únicos sitios que deciden
+# "a qué idioma mando a esta persona".
+RewriteEngine On
+
+# /es/ y /en/ -> la SPA (home, cuestionario, resultados, comparador interactivo)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(es|en)/?$ smartphonematch-demo.html?lang=$1 [L,QSA]
+
+# Español — mismas rutas que siempre ha tenido el sitio, con /es/ delante
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^es/moviles/marca/([a-z0-9-]+)/?$ moviles/marca.php?slug=$1&lang=es [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^es/moviles/([a-z0-9-]+)/?$ moviles/index.php?slug=$1&lang=es [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^es/comparar/([a-z0-9-]+)-vs-([a-z0-9-]+)/?$ comparar/index.php?a=$1&b=$2&lang=es [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^es/ofertas/?$ ofertas/index.php?lang=es [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^es/sobre-nosotros/?$ about.php?lang=es [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^es/privacidad/?$ legal/privacy.php?lang=es [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^es/aviso-legal/?$ legal/terms.php?lang=es [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^es/cookies/?$ legal/cookies.php?lang=es [L,QSA]
+
+# English — equivalent routes with their own readable segments
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^en/mobiles/brand/([a-z0-9-]+)/?$ moviles/marca.php?slug=$1&lang=en [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^en/mobiles/([a-z0-9-]+)/?$ moviles/index.php?slug=$1&lang=en [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^en/compare/([a-z0-9-]+)-vs-([a-z0-9-]+)/?$ comparar/index.php?a=$1&b=$2&lang=en [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^en/deals/?$ ofertas/index.php?lang=en [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^en/about/?$ about.php?lang=en [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^en/privacy/?$ legal/privacy.php?lang=en [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^en/legal-notice/?$ legal/terms.php?lang=en [L,QSA]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^en/cookies/?$ legal/cookies.php?lang=en [L,QSA]

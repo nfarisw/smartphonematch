@@ -1,0 +1,17 @@
+# /moviles/marca/samsung          -> /moviles/marca.php?slug=samsung
+# /moviles/galaxy-s26-ultra        -> /moviles/index.php?slug=galaxy-s26-ultra
+# /moviles/mejores-moviles-300-euros (mismo router que el móvil, detecta
+#   el patrón "mejores-moviles-N-euros" y sirve la página de presupuesto)
+#
+# Estas rutas sin prefijo /es|en/ son las históricas del sitio (de antes de
+# la internacionalización) — se mantienen funcionando en español exacto,
+# tal cual siempre han estado, para no romper enlaces/marcadores existentes.
+# Las rutas nuevas y canónicas son /es/moviles/... y /en/mobiles/...
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^marca/([a-z0-9-]+)/?$ marca.php?slug=$1&lang=es [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-z0-9-]+)/?$ index.php?slug=$1&lang=es [L,QSA]

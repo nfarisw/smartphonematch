@@ -1,0 +1,7 @@
+# Ruta histórica sin prefijo de idioma — se mantiene en español para no
+# romper enlaces existentes. La ruta canónica nueva es /es/ofertas/ o
+# /en/deals/.
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^$ index.php?lang=es [L,QSA]

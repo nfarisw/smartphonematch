@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<script>
+// Aplica tema Y idioma ANTES de pintar la página, para evitar parpadeos.
+// Idioma: prefijo de ruta (/es/ o /en/) > cookie de elección manual >
+// idioma del navegador > inglés. El prefijo de ruta manda porque así cada
+// URL sirve siempre el mismo idioma (lo que hace que hreflang tenga sentido
+// de verdad) — igual que en las páginas PHP del sitio.
+(function(){
+  try{
+    var t = localStorage.getItem('spm-theme');
+    if(!t){ t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; }
+    if(t === 'light') document.documentElement.setAttribute('data-theme','light');
+  }catch(e){}
+  try{
+    function readCookie(name){
+      var m = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+      return m ? decodeURIComponent(m[1]) : null;
+    }
+    var pathLang = (location.pathname.match(/^\/(es|en)\//) || [])[1];
+    var lang = pathLang || readCookie('spm_lang');
+    if(!lang){
+      var nav = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+      lang = nav.indexOf('es') === 0 ? 'es' : 'en';
+    }
+    if(lang !== 'es' && lang !== 'en') lang = 'en';
+    document.documentElement.setAttribute('lang', lang);
+    window.__SPM_LANG__ = lang;
+    if(pathLang){
+      // La URL manda: sincroniza la cookie para que la próxima vez que
+      // entre por una ruta sin prefijo (p.ej. /smartphonematch-demo.html
+      // suelto) recuerde este idioma.
+      document.cookie = 'spm_lang=' + lang + '; path=/; max-age=' + (60*60*24*365) + '; samesite=lax';
+    }
+  }catch(e){ window.__SPM_LANG__ = 'en'; }
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartPhoneMatch — Encuentra tu móvil ideal</title>
+<meta name="description" content="Responde un cuestionario de 2 minutos y te decimos qué móvil encaja mejor contigo según tu presupuesto y prioridades, con el porcentaje de compatibilidad y el motivo de cada recomendación.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="SmartPhoneMatch">
+<meta property="og:title" content="SmartPhoneMatch — Encuentra tu móvil ideal">
+<meta property="og:description" content="Selector inteligente de smartphones: cuestionario, puntuación de compatibilidad y comparador. No es una web de reviews.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2345E0C7'/%3E%3Cstop offset='1' stop-color='%239B7CFF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='%230E1120'/%3E%3Ccircle cx='50' cy='50' r='30' fill='url(%23g)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Google AdSense: cuando tengas la cuenta aprobada, descomenta la línea
+     de abajo y sustituye ca-pub-XXXXXXXXXXXXXXXX por tu ID de editor real
+     (el mismo que pongas en la constante ADSENSE_CLIENT, definida en el
+     bloque de JavaScript al final del archivo). Sin esto, los anuncios
+     no cargan nada. -->
+<!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+
+<div class="notice-banner" id="notice-banner"></div>
+
+<header class="nav">
+  <a href="#/" class="logo"><span class="dot"></span>SmartPhoneMatch</a>
+  <div class="nav-right">
+    <nav class="links" id="nav-links">
+      <a href="#/quiz" data-i18n="nav.find"></a>
+      <a href="#/resultados" data-i18n="nav.mobiles"></a>
+      <a href="#/comparar" data-i18n="nav.compare"></a>
+      <a href="/ofertas/" id="nav-deals" data-i18n="nav.deals"></a>
+    </nav>
+    <a class="lang-switch" id="lang-switch" href="#" aria-label="Language"></a>
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Cambiar a tema claro" aria-pressed="false">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5z"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="content-with-rails">
+<aside class="ad-rail ad-rail-left" aria-hidden="true">
+  <div class="ad-slot ad-slot-rail"><span class="ad-label" data-i18n="spa.ad_label"></span><div class="ad-slot-inner" data-i18n="spa.ad_placeholder_rail"></div></div>
+</aside>
+<aside class="ad-rail ad-rail-right" aria-hidden="true">
+  <div class="ad-slot ad-slot-rail"><span class="ad-label" data-i18n="spa.ad_label"></span><div class="ad-slot-inner" data-i18n="spa.ad_placeholder_rail"></div></div>
+</aside>
+
+<main id="app"></main>
+</div>
+
+<footer>
+  <span>© <span id="footer-year"></span> <span data-i18n="spa.footer_copyright"></span></span>
+  <span class="faint" id="footer-disclosure" data-i18n="footer.disclosure"></span>
+  <nav class="footer-legal">
+    <a id="footer-about" href="/es/sobre-nosotros/" data-i18n="footer.legal_about"></a>
+    <a id="footer-privacy" href="/es/privacidad/" data-i18n="footer.legal_privacy"></a>
+    <a id="footer-legal" href="/es/aviso-legal/" data-i18n="footer.legal_terms"></a>
+    <a id="footer-cookies-link" href="/es/cookies/" data-i18n="footer.legal_cookies"></a>
+  </nav>
+</footer>
+
+<div id="spm-consent-banner" class="consent-banner" role="dialog" aria-live="polite" hidden>
+  <p id="spm-consent-text"></p>
+  <div class="consent-actions">
+    <button type="button" class="btn" id="spm-consent-reject" data-i18n="consent.reject"></button>
+    <button type="button" class="btn btn-primary" id="spm-consent-accept" data-i18n="consent.accept"></button>
+  </div>
+</div>
+<script src="/assets/consent.js" defer></script>
+
+<script>
+/* =====================================================================
+   IDIOMA — diccionario centralizado (español/inglés). Todas las vistas
+   llaman a t(clave, variables) en vez de escribir texto suelto; así no
+   hay cadenas traducibles sueltas dentro de los componentes. Marcas,
+   modelos y especificaciones técnicas nunca pasan por aquí.
+   ===================================================================== */
+const I18N = {
+  es: {
+    'nav.find': 'Encontrar mi móvil', 'nav.mobiles': 'Todos los móviles', 'nav.compare': 'Comparar', 'nav.deals': 'Ofertas',
+    'banner.notice': 'Los precios son <b>rangos orientativos</b> — el precio final y la disponibilidad los confirma cada tienda.',
+    'footer.disclosure': 'Los precios y la disponibilidad pueden variar; confírmalos siempre en la tienda antes de comprar.',
+    'footer.legal_about': 'Sobre nosotros', 'footer.legal_privacy': 'Privacidad',
+    'footer.legal_terms': 'Aviso legal', 'footer.legal_cookies': 'Cookies',
+    'consent.text': 'Usamos cookies propias necesarias para el idioma y el tema del sitio (siempre activas) y, solo si las aceptas, cookies de analítica y publicidad. Más información en nuestra <a href="%link%">Política de Cookies</a>.',
+    'consent.accept': 'Aceptar todas', 'consent.reject': 'Solo necesarias',
+    'lang.other_label': 'English', 'lang.other_flag': '🇬🇧', 'lang.other_code': 'EN',
+    'spa.site_title': 'SmartPhoneMatch — Encuentra tu móvil ideal',
+    'spa.meta_description': 'Responde un cuestionario de 2 minutos y te decimos qué móvil encaja mejor contigo según tu presupuesto y prioridades, con el porcentaje de compatibilidad y el motivo de cada recomendación.',
+    'spa.hero_eyebrow': 'Selector inteligente de smartphones',
+    'spa.hero_title': '¿Qué móvil<br>me compro?',
+    'spa.hero_sub': 'Dinos cuánto quieres gastar y qué buscas en un móvil. Te diremos cuáles son los mejores para ti, con un porcentaje de compatibilidad y el motivo exacto.',
+    'spa.hero_cta': 'Encontrar mi móvil →',
+    'spa.step1_title': 'Responde 10 preguntas', 'spa.step1_text': 'Presupuesto, uso, prioridades. Menos de 2 minutos.',
+    'spa.step2_title': 'Analizamos el catálogo', 'spa.step2_text': 'Un motor de puntuación compara tus respuestas con las fichas técnicas.',
+    'spa.step3_title': 'Tu match, explicado', 'spa.step3_text': 'Ranking con % de compatibilidad y el porqué de cada recomendación.',
+    'spa.loading_catalog': 'Cargando catálogo…',
+    'spa.api_error': 'No se ha podido conectar con la API en %api%.<br>Comprueba que Apache y MySQL (XAMPP) estén arrancados y que esa URL responda en el navegador.',
+    'spa.retry': 'Reintentar', 'spa.retrying': 'Reintentando...',
+    'spa.ad_label': 'Publicidad', 'spa.ad_placeholder': 'Espacio reservado para anuncios', 'spa.ad_placeholder_rail': 'Espacio reservado<br>para anuncios',
+    'spa.question_progress': 'PREGUNTA %n% / %total%',
+    'spa.back': '← Atrás', 'spa.next': 'Siguiente →', 'spa.see_results': 'Ver mis resultados →',
+    'spa.no_quiz_yet': 'Aún no has hecho el cuestionario.',
+    'spa.results_error': 'No se pudieron calcular tus resultados. Comprueba que la API esté disponible e inténtalo de nuevo.',
+    'spa.retry_quiz': 'Repetir cuestionario',
+    'spa.no_match_in_budget': 'No tenemos ningún %os% en ese rango de presupuesto dentro de nuestro catálogo actual (%count% móviles).<br>Prueba a ampliar el presupuesto o a cambiar de sistema.',
+    'spa.change_budget': 'Cambiar presupuesto',
+    'spa.medal_1': '🥇 Mejor para ti', 'spa.medal_2': '🥈 Segunda opción', 'spa.medal_3': '🥉 Tercera opción',
+    'spa.compare_btn': 'Comparar', 'spa.compare_btn_add': '+ Comparar',
+    'spa.view_phone': 'Ver móvil', 'spa.view_sheet': 'Ver ficha',
+    'spa.results_heading': 'Hemos encontrado tus mejores opciones', 'spa.all_results_heading': 'Todos los resultados',
+    'spa.refurbished': 'reacondicionado', 'spa.new_from': 'nuevo ~%price%',
+    'spa.all_phones_heading': 'Todos los móviles',
+    'spa.all_phones_sub': 'Explora el catálogo completo, filtra por marca o presupuesto, o busca por modelo.',
+    'spa.search_placeholder': 'Buscar por marca o modelo…',
+    'spa.filter_all_brands': 'Todas las marcas', 'spa.filter_all_budgets': 'Cualquier presupuesto',
+    'spa.no_results_catalog': 'No hay móviles que coincidan con tu búsqueda.',
+    'spa.take_quiz_instead': '¿Prefieres que te recomendemos uno? Haz el test →',
+    'spa.compare_heading': 'Comparar móviles',
+    'spa.compare_help': 'Selecciona entre 2 y 4 móviles desde los resultados, el catálogo o las fichas de producto (botón "Comparar") para verlos aquí lado a lado.',
+    'spa.slot_empty': 'Hueco %n% vacío', 'spa.go_to_results': 'Ir a resultados',
+    'spa.detail_not_found': 'Móvil no encontrado.', 'spa.back_button': 'Volver',
+    'spa.where_to_buy': 'Dónde comprarlo', 'spa.refurbished_heading': 'Reacondicionados',
+    'spa.detail_cta_title': '¿Es este móvil adecuado para ti?', 'spa.detail_cta_text': 'Responde el cuestionario y lo comprobamos.', 'spa.check': 'Comprobar',
+    'spa.advantages': 'Ventajas', 'spa.know_before': 'Lo que debes saber', 'spa.no_charger': 'El cargador no se incluye en la caja',
+    'spa.footer_copyright': 'SmartPhoneMatch',
+    'spa.pro_camera': 'Cámara destacada', 'spa.pro_performance': 'Rendimiento potente', 'spa.pro_gaming': 'Va muy bien para jugar',
+    'spa.pro_battery': 'Buena autonomía', 'spa.pro_screen': 'Pantalla de calidad', 'spa.pro_value': 'Buena relación calidad/precio',
+    'spa.con_camera': 'La cámara no es lo más fuerte de este modelo', 'spa.con_performance': 'Rendimiento más justo que otras gamas',
+    'spa.con_gaming': 'No es el más adecuado para juegos exigentes', 'spa.con_battery': 'Autonomía algo por debajo de la media',
+    'spa.con_screen': 'Pantalla más básica que en otros modelos', 'spa.con_value': 'Relación calidad/precio menos competitiva',
+    'q.budget': '¿Cuál es tu presupuesto?',
+    'q.budget.lt200': 'Menos de 200 €', 'q.budget.200-300': '200-300 €', 'q.budget.300-400': '300-400 €',
+    'q.budget.400-600': '400-600 €', 'q.budget.600-800': '600-800 €', 'q.budget.800-1000': '800-1.000 €', 'q.budget.gt1000': 'Más de 1.000 €',
+    'q.refurb': '¿Te interesa ver también móviles reacondicionados (revisados, más baratos)?',
+    'q.refurb.si': 'Sí, muéstramelos también', 'q.refurb.no': 'No, solo nuevos',
+    'q.priority': '¿Qué es lo más importante para ti?',
+    'q.priority.camera': 'Cámara', 'q.priority.battery': 'Batería', 'q.priority.performance': 'Rendimiento',
+    'q.priority.screen': 'Pantalla', 'q.priority.design': 'Diseño', 'q.priority.value': 'Relación calidad/precio',
+    'q.gaming': '¿Juegas habitualmente en el móvil?',
+    'q.gaming.no': 'No', 'q.gaming.occasional': 'Ocasionalmente', 'q.gaming.yes': 'Sí, bastante', 'q.gaming.demanding': 'Sí, juegos exigentes',
+    'q.cameraImportance': '¿Qué importancia tiene la cámara?',
+    'q.cameraImportance.low': 'Baja', 'q.cameraImportance.medium': 'Media', 'q.cameraImportance.high': 'Alta', 'q.cameraImportance.veryhigh': 'Muy alta',
+    'q.holdDuration': '¿Cuánto tiempo quieres conservar el móvil?',
+    'q.holdDuration.1-2': '1-2 años', 'q.holdDuration.2-3': '2-3 años', 'q.holdDuration.3-4': '3-4 años', 'q.holdDuration.4plus': '4+ años',
+    'q.size': '¿Qué tamaño prefieres?',
+    'q.size.compacto': 'Compacto', 'q.size.normal': 'Normal', 'q.size.grande': 'Grande', 'q.size.any': 'Me da igual',
+    'q.os': '¿Qué sistema prefieres?', 'q.os.Android': 'Android', 'q.os.iOS': 'iPhone / iOS', 'q.os.any': 'Me da igual',
+    'q.fastCharging': '¿Qué importancia tiene la carga rápida?',
+    'q.fastCharging.low': 'Baja', 'q.fastCharging.medium': 'Media', 'q.fastCharging.high': 'Alta',
+    'q.batteryImportance': '¿Te importa que tenga buena autonomía?',
+    'q.batteryImportance.poco': 'Poco', 'q.batteryImportance.normal': 'Normal', 'q.batteryImportance.mucho': 'Mucho',
+    'q.preference': '¿Qué prefieres?',
+    'q.preference.best': 'El mejor móvil posible por mi dinero', 'q.preference.cheap': 'Ahorrar lo máximo posible', 'q.preference.any': 'Me da igual',
+  },
+  en: {
+    'nav.find': 'Find my phone', 'nav.mobiles': 'All phones', 'nav.compare': 'Compare', 'nav.deals': 'Deals',
+    'banner.notice': 'Prices are <b>estimated ranges</b> — the final price and availability are confirmed by each store.',
+    'footer.disclosure': 'Prices and availability may vary; always confirm them at the store before buying.',
+    'footer.legal_about': 'About', 'footer.legal_privacy': 'Privacy',
+    'footer.legal_terms': 'Legal Notice', 'footer.legal_cookies': 'Cookies',
+    'consent.text': 'We use our own necessary cookies for the site\'s language and theme (always active) and, only if you accept them, analytics and advertising cookies. More info in our <a href="%link%">Cookie Policy</a>.',
+    'consent.accept': 'Accept all', 'consent.reject': 'Necessary only',
+    'lang.other_label': 'Español', 'lang.other_flag': '🇪🇸', 'lang.other_code': 'ES',
+    'spa.site_title': 'SmartPhoneMatch — Find your ideal phone',
+    'spa.meta_description': "Take a 2-minute quiz and we'll tell you which phone fits you best based on your budget and priorities, with a compatibility score and the reason behind each recommendation.",
+    'spa.hero_eyebrow': 'Smart smartphone picker',
+    'spa.hero_title': 'Which phone<br>should I buy?',
+    'spa.hero_sub': "Tell us how much you want to spend and what you're looking for in a phone. We'll tell you the best ones for you, with a compatibility score and the exact reason why.",
+    'spa.hero_cta': 'Find my phone →',
+    'spa.step1_title': 'Answer 10 questions', 'spa.step1_text': 'Budget, usage, priorities. Under 2 minutes.',
+    'spa.step2_title': 'We analyze the catalog', 'spa.step2_text': 'A scoring engine compares your answers against the spec sheets.',
+    'spa.step3_title': 'Your match, explained', 'spa.step3_text': 'A ranking with a compatibility % and the reason behind each recommendation.',
+    'spa.loading_catalog': 'Loading catalog…',
+    'spa.api_error': "Couldn't connect to the API at %api%.<br>Check that Apache and MySQL (XAMPP) are running and that URL responds in the browser.",
+    'spa.retry': 'Retry', 'spa.retrying': 'Retrying...',
+    'spa.ad_label': 'Advertisement', 'spa.ad_placeholder': 'Ad space reserved', 'spa.ad_placeholder_rail': 'Ad space<br>reserved',
+    'spa.question_progress': 'QUESTION %n% OF %total%',
+    'spa.back': '← Back', 'spa.next': 'Next →', 'spa.see_results': 'See my results →',
+    'spa.no_quiz_yet': "You haven't taken the quiz yet.",
+    'spa.results_error': "We couldn't calculate your results. Check that the API is available and try again.",
+    'spa.retry_quiz': 'Retake the quiz',
+    'spa.no_match_in_budget': "We don't have any %os% phone in that budget range in our current catalog (%count% phones).<br>Try widening your budget or switching OS.",
+    'spa.change_budget': 'Change budget',
+    'spa.medal_1': '🥇 Best for you', 'spa.medal_2': '🥈 Second option', 'spa.medal_3': '🥉 Third option',
+    'spa.compare_btn': 'Compare', 'spa.compare_btn_add': '+ Compare',
+    'spa.view_phone': 'View phone', 'spa.view_sheet': 'View sheet',
+    'spa.results_heading': "We've found your best options", 'spa.all_results_heading': 'All results',
+    'spa.refurbished': 'refurbished', 'spa.new_from': 'new ~%price%',
+    'spa.all_phones_heading': 'All phones',
+    'spa.all_phones_sub': 'Browse the full catalog, filter by brand or budget, or search by model.',
+    'spa.search_placeholder': 'Search by brand or model…',
+    'spa.filter_all_brands': 'All brands', 'spa.filter_all_budgets': 'Any budget',
+    'spa.no_results_catalog': 'No phones match your search.',
+    'spa.take_quiz_instead': 'Prefer a recommendation instead? Take the quiz →',
+    'spa.compare_heading': 'Compare phones',
+    'spa.compare_help': 'Pick 2 to 4 phones from the results, the catalog, or product sheets (the "Compare" button) to see them here side by side.',
+    'spa.slot_empty': 'Slot %n% empty', 'spa.go_to_results': 'Go to results',
+    'spa.detail_not_found': 'Phone not found.', 'spa.back_button': 'Back',
+    'spa.where_to_buy': 'Where to buy it', 'spa.refurbished_heading': 'Refurbished',
+    'spa.detail_cta_title': 'Is this the right phone for you?', 'spa.detail_cta_text': "Take the quiz and we'll check.", 'spa.check': 'Check',
+    'spa.advantages': 'Pros', 'spa.know_before': 'What you should know', 'spa.no_charger': "The charger isn't included in the box",
+    'spa.footer_copyright': 'SmartPhoneMatch',
+    'spa.pro_camera': 'Standout camera', 'spa.pro_performance': 'Powerful performance', 'spa.pro_gaming': 'Great for gaming',
+    'spa.pro_battery': 'Good battery life', 'spa.pro_screen': 'Quality screen', 'spa.pro_value': 'Good value for money',
+    'spa.con_camera': "The camera isn't this model's strongest point", 'spa.con_performance': 'More modest performance than other tiers',
+    'spa.con_gaming': 'Not the best fit for demanding games', 'spa.con_battery': 'Battery life somewhat below average',
+    'spa.con_screen': 'More basic screen than other models', 'spa.con_value': 'Less competitive value for money',
+    'q.budget': "What's your budget?",
+    'q.budget.lt200': 'Under $200', 'q.budget.200-300': '$200-300', 'q.budget.300-400': '$300-400',
+    'q.budget.400-600': '$400-600', 'q.budget.600-800': '$600-800', 'q.budget.800-1000': '$800-1,000', 'q.budget.gt1000': 'Over $1,000',
+    'q.refurb': 'Are you interested in refurbished phones too (inspected, cheaper)?',
+    'q.refurb.si': 'Yes, show me those too', 'q.refurb.no': 'No, new only',
+    'q.priority': "What matters most to you?",
+    'q.priority.camera': 'Camera', 'q.priority.battery': 'Battery', 'q.priority.performance': 'Performance',
+    'q.priority.screen': 'Screen', 'q.priority.design': 'Design', 'q.priority.value': 'Value for money',
+    'q.gaming': 'Do you regularly play games on your phone?',
+    'q.gaming.no': 'No', 'q.gaming.occasional': 'Occasionally', 'q.gaming.yes': 'Yes, quite a bit', 'q.gaming.demanding': 'Yes, demanding games',
+    'q.cameraImportance': 'How important is the camera to you?',
+    'q.cameraImportance.low': 'Low', 'q.cameraImportance.medium': 'Medium', 'q.cameraImportance.high': 'High', 'q.cameraImportance.veryhigh': 'Very high',
+    'q.holdDuration': 'How long do you want to keep the phone?',
+    'q.holdDuration.1-2': '1-2 years', 'q.holdDuration.2-3': '2-3 years', 'q.holdDuration.3-4': '3-4 years', 'q.holdDuration.4plus': '4+ years',
+    'q.size': 'What size do you prefer?',
+    'q.size.compacto': 'Compact', 'q.size.normal': 'Normal', 'q.size.grande': 'Large', 'q.size.any': "Doesn't matter",
+    'q.os': 'Which OS do you prefer?', 'q.os.Android': 'Android', 'q.os.iOS': 'iPhone / iOS', 'q.os.any': "Doesn't matter",
+    'q.fastCharging': 'How important is fast charging?',
+    'q.fastCharging.low': 'Low', 'q.fastCharging.medium': 'Medium', 'q.fastCharging.high': 'High',
+    'q.batteryImportance': 'Do you care about good battery life?',
+    'q.batteryImportance.poco': 'Not much', 'q.batteryImportance.normal': 'Somewhat', 'q.batteryImportance.mucho': 'A lot',
+    'q.preference': 'What do you prefer?',
+    'q.preference.best': 'The best phone possible for my money', 'q.preference.cheap': 'Save as much as possible', 'q.preference.any': "Doesn't matter",
+  },
+};
+const LANG = window.__SPM_LANG__ === 'es' ? 'es' : (window.__SPM_LANG__ === 'en' ? 'en' : 'en');
+// El mercado va ligado al idioma por ahora (es→ES, en→US); se separa como
+// constante propia para poder desacoplarlos el día que haya un idioma que
+// sirva a varios mercados, sin tocar el resto del código de la SPA.
+const MARKET = LANG === 'es' ? 'ES' : 'US';
+const LANG_SEGMENTS = {
+  es: { deals: '/es/ofertas/', about: '/es/sobre-nosotros/', privacy: '/es/privacidad/', legal: '/es/aviso-legal/', cookies: '/es/cookies/' },
+  en: { deals: '/en/deals/', about: '/en/about/', privacy: '/en/privacy/', legal: '/en/legal-notice/', cookies: '/en/cookies/' },
+};
+function t(key, vars){
+  var str = (I18N[LANG] && I18N[LANG][key]) || key;
+  if(vars) for(var k in vars) str = str.split('%'+k+'%').join(vars[k]);
+  return str;
+}
+// Aplica las traducciones a todo lo marcado con data-i18n en el HTML estático
+// (nav, banner, footer, ad rails) — el resto del contenido lo generan las
+// funciones de vista, que ya llaman a t() directamente.
+function applyStaticI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    el.innerHTML = t(el.dataset.i18n);
+  });
+  document.title = t('spa.site_title');
+  var desc = document.querySelector('meta[name="description"]');
+  if(desc) desc.setAttribute('content', t('spa.meta_description'));
+  var dealsLink = document.getElementById('nav-deals');
+  if(dealsLink) dealsLink.setAttribute('href', LANG_SEGMENTS[LANG].deals);
+  ['about','privacy','legal','cookies'].forEach(function(key){
+    var el = document.getElementById(key === 'legal' ? 'footer-legal' : (key === 'cookies' ? 'footer-cookies-link' : 'footer-' + key));
+    if(el) el.setAttribute('href', LANG_SEGMENTS[LANG][key]);
+  });
+  var consentText = document.getElementById('spm-consent-text');
+  if(consentText) consentText.innerHTML = t('consent.text', {link: LANG_SEGMENTS[LANG].cookies});
+}
+
+/* =====================================================================
+   API — la fuente de datos real es smartphonematch-api (PHP + MySQL).
+   En vez de un precio exacto (que caduca en días), cada móvil trae un
+   RANGO orientativo (price_min–price_max) para poder filtrar por
+   presupuesto. El precio real y actual lo da siempre la propia tienda:
+   el botón "Ver oferta" enlaza a la ficha en vivo del retailer.
+   ===================================================================== */
+// En local (file:// o localhost) apunta al XAMPP local. En un dominio real,
+// asume que la carpeta de la API se sube junto al HTML como /smartphonematch-api
+// del mismo dominio — así no hay que tocar este archivo al desplegar.
+const API_BASE = /^https?:$/.test(location.protocol) && location.hostname !== "localhost" && location.hostname !== "127.0.0.1"
+  ? `${location.origin}/smartphonematch-api`
+  : "http://localhost/smartphonematch-api";
+
+// Rellena esto con tu ID de editor cuando tengas la cuenta de Google AdSense
+// aprobada, por ejemplo "ca-pub-1234567890123456". Mientras esté vacío, los
+// huecos de anuncios se ven como una reserva de espacio neutra en vez de
+// anuncios reales. También hay que añadir el script de AdSense en el
+// <head> del HTML (hay un comentario ahí mismo indicando dónde).
+const ADSENSE_CLIENT = "";
+// El slot de anuncio de Google AdSense (unidad de anuncios) a usar en todos
+// los huecos. Si quieres unidades distintas por zona, cambia adSlot() para
+// aceptar un nombre de zona y mapearlo a su propio data-ad-slot.
+const ADSENSE_SLOT = "";
+
+// Ponlo a true en cuanto hayas configurado AMAZON_ASSOC_TAG en config.php
+// de la API (ver ese archivo) y los enlaces de Amazon lleven ya tu
+// etiqueta de verdad. El aviso "Como Afiliado de Amazon..." es obligatorio
+// mientras haya enlaces de afiliado activos — por eso no se muestra hasta
+// que lo actives aquí.
+const AMAZON_AFFILIATE_ACTIVE = false;
+
+// Tu ID de medición de Google Analytics 4 (tipo "G-XXXXXXXXXX"). Vacío =
+// no se carga nada. En cuanto lo pongas, se registran vistas de página
+// virtuales en cada cambio de sección (el cuestionario/resultados/ficha
+// no recargan la página real, así que sin esto GA4 solo vería una visita
+// por sesión en vez de cada pantalla).
+const GA_MEASUREMENT_ID = "";
+// No se carga nunca sin consentimiento explícito (window.spmConsent, ver
+// assets/consent.js) — ni siquiera con GA_MEASUREMENT_ID configurado.
+// wireConsentGate() más abajo llama a esto en cuanto el usuario acepta.
+function initAnalytics(){
+  if(!GA_MEASUREMENT_ID) return;
+  if(!window.spmConsent || window.spmConsent.get() !== "accepted") return;
+  if(window.__spmAnalyticsLoaded) return;
+  window.__spmAnalyticsLoaded = true;
+  const s = document.createElement("script");
+  s.async = true;
+  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ window.dataLayer.push(arguments); };
+  gtag("js", new Date());
+  gtag("config", GA_MEASUREMENT_ID, { send_page_view: false });
+}
+function trackPageView(path, title){
+  if(!GA_MEASUREMENT_ID || typeof gtag !== "function") return;
+  gtag("event", "page_view", { page_path: path, page_title: title });
+}
+// Eventos de negocio (clic a tienda, uso del test, comparador...). Sin
+// GA_MEASUREMENT_ID configurado no hace nada — solo queda el hueco listo.
+function trackEvent(name, params){
+  if(!GA_MEASUREMENT_ID || typeof gtag !== "function") return;
+  gtag("event", name, params || {});
+}
+
+/* =====================================================================
+   TEMA CLARO / OSCURO
+   El tema real ya se aplica antes de esto (script en el <head>, para que
+   no haya parpadeo). Aquí solo conectamos el botón y guardamos el cambio.
+   ===================================================================== */
+const THEME_KEY = "spm-theme";
+function currentTheme(){ return document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark"; }
+function applyTheme(theme){
+  if(theme === "light") document.documentElement.setAttribute("data-theme","light");
+  else document.documentElement.removeAttribute("data-theme");
+  const btn = document.getElementById("theme-toggle");
+  if(btn){
+    btn.setAttribute("aria-pressed", theme==="light" ? "true":"false");
+    btn.setAttribute("aria-label", theme==="light" ? "Cambiar a tema oscuro" : "Cambiar a tema claro");
+  }
+}
+function initTheme(){
+  applyTheme(currentTheme());
+  const toggle = document.getElementById("theme-toggle");
+  if(!toggle) return;
+  toggle.addEventListener("click", () => {
+    const next = currentTheme() === "light" ? "dark" : "light";
+    try { localStorage.setItem(THEME_KEY, next); } catch(e){}
+    applyTheme(next);
+    trackEvent("theme_toggle", { theme: next });
+  });
+}
+
+/* =====================================================================
+   SELECTOR DE IDIOMA
+   Cambiar de idioma: guarda la elección en cookie (se respeta siempre a
+   partir de ahí) y navega a la home del otro idioma, conservando la ruta
+   interna (#/quiz, #/resultados...) en la que estuvieras.
+   ===================================================================== */
+function initLangSwitch(){
+  const el = document.getElementById("lang-switch");
+  if(!el) return;
+  el.innerHTML = `<span class="lang-flag" aria-hidden="true">${t('lang.other_flag')}</span><span class="lang-code">${t('lang.other_code')}</span>`;
+  el.setAttribute("aria-label", "Language: " + t('lang.other_label'));
+  el.addEventListener("click", (e) => {
+    e.preventDefault();
+    const other = LANG === "es" ? "en" : "es";
+    try { document.cookie = "spm_lang=" + other + "; path=/; max-age=" + (60*60*24*365) + "; samesite=lax"; } catch(err){}
+    const hash = location.hash || "";
+    location.href = "/" + other + "/" + hash;
+  });
+}
+
+// Sube este número cada vez que sustituyas una foto en images/phones/ por
+// otra con el MISMO nombre de archivo. Si no, el navegador de cada visitante
+// puede seguir enseñando la foto vieja que tenía guardada en caché, aunque
+// en el servidor ya esté la nueva (justo lo que pasó con el iPhone 18 Pro).
+const IMAGES_VERSION = 2;
+
+function mapApiPhone(row){
+  const nf = v => (v===null || v===undefined || v==="") ? 0 : parseFloat(v);
+  const nb = v => !!Number(v);
+  const phone = {
+    slug: row.slug, brand: row.brand_name, model: row.model, os: row.os,
+    size: row.size_category,
+    priceMin: nf(row.price_min), priceMax: nf(row.price_max),
+    refurbMin: nf(row.refurb_price_min), refurbMax: nf(row.refurb_price_max),
+    // El flag de "verificado" solo es real para el mercado ES (única fuente
+    // de precios confirmados contra tiendas reales por ahora); para el resto
+    // de mercados se muestra siempre como estimación, aunque el dato crudo
+    // de la BD diga otra cosa.
+    verified: MARKET === 'ES' && nb(row.price_verified), isDemo: nb(row.is_demo_data),
+    scores: {
+      camera: nf(row.photo_score), performance: nf(row.performance_score), gaming: nf(row.gaming_score),
+      battery: nf(row.battery_score), screen: nf(row.screen_score), value: nf(row.value_score),
+    },
+    specs: {
+      screen: row.screen_size, refresh: row.refresh_rate, cpu: row.processor, ram: row.ram, storage: row.storage,
+      battery: row.battery_mah, fast: row.fast_charging, main: row.main_camera, ultrawide: row.ultrawide_camera,
+      tele: row.telephoto, front: row.front_camera, weight: row.weight, water: row.water_resistance,
+      updates: nf(row.update_years), g5: nb(row.has_5g), nfc: nb(row.has_nfc), esim: nb(row.has_esim), wireless: nb(row.wireless_charging),
+    },
+    retailers: [], refurbRetailers: [],
+  };
+  if(Array.isArray(row.offers)){
+    phone.retailers = row.offers.filter(o=>o.condition==="nuevo" && o.url)
+      .map(o=>({name:o.retailer_name, url:o.url}));
+    phone.refurbRetailers = row.offers.filter(o=>o.condition==="reacondicionado" && o.url)
+      .map(o=>({name:o.retailer_name, grade:o.refurb_grade||"", url:o.url}));
+  }
+  return phone;
+}
+
+async function apiFetchPhones(){
+  const res = await fetch(`${API_BASE}/smartphones.php`);
+  if(!res.ok) throw new Error("api_error");
+  const data = await res.json();
+  return data.smartphones.map(mapApiPhone);
+}
+async function apiFetchPhoneDetail(slug){
+  const res = await fetch(`${API_BASE}/smartphone.php?slug=${encodeURIComponent(slug)}&market=${MARKET}`);
+  if(!res.ok) throw new Error("api_error");
+  const row = await res.json();
+  if(row.error) throw new Error(row.error);
+  return mapApiPhone(row);
+}
+async function apiRecommend(answers){
+  const res = await fetch(`${API_BASE}/recommend.php`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({answers, lang: LANG, market: MARKET}),
+  });
+  if(!res.ok) throw new Error("api_error");
+  const data = await res.json();
+  return data.results.map(r => ({
+    phone: mapApiPhone(r.phone), score: r.score, pros: r.pros, cons: r.cons, refurbMatch: r.refurbMatch,
+  }));
+}
+
+/* =====================================================================
+   CUESTIONARIO — configuración de preguntas (los textos salen de I18N;
+   aquí solo queda la estructura, para poder añadir/quitar preguntas sin
+   tocar el diccionario de idiomas más que en un sitio).
+   ===================================================================== */
+const QUESTIONS = [
+  {key:"budget", options:["lt200","200-300","300-400","400-600","600-800","800-1000","gt1000"]},
+  {key:"refurb", options:["si","no"]},
+  {key:"priority", options:["camera","battery","performance","screen","design","value"]},
+  {key:"gaming", options:["no","occasional","yes","demanding"]},
+  {key:"cameraImportance", options:["low","medium","high","veryhigh"]},
+  {key:"holdDuration", options:["1-2","2-3","3-4","4plus"]},
+  {key:"size", options:["compacto","normal","grande","any"]},
+  {key:"os", options:["Android","iOS","any"]},
+  {key:"fastCharging", options:["low","medium","high"]},
+  {key:"batteryImportance", options:["poco","normal","mucho"]},
+  {key:"preference", options:["best","cheap","any"]},
+];
+/* =====================================================================
+   ESTADO + ROUTER
+   El motor de scoring vive en el backend (recommend.php) — el JS solo
+   pide el catálogo y los resultados a la API y los pinta.
+   ===================================================================== */
+const State = { answers:{}, step:0, results:null, compareSet:[], phones:[], apiError:null, catalogSearch:"", catalogBrand:"", catalogBudget:"" };
+
+function navigate(hash){ location.hash = hash; }
+window.addEventListener("hashchange", () => { render(); });
+// Si el usuario acepta las cookies DESPUÉS de que la página ya haya cargado
+// (banner tardío, o cambia de opinión desde /cookies/), esto activa GA4/anuncios
+// sin necesidad de recargar. Rechazar no desactiva un script que ya se cargó
+// en esta misma pestaña, pero no se volverá a cargar en la siguiente visita.
+window.addEventListener("spm:consent-changed", (e) => {
+  if(e.detail && e.detail.status === "accepted"){ initAnalytics(); runAdSlots(); }
+});
+window.addEventListener("DOMContentLoaded", async () => {
+  applyStaticI18n();
+  initAnalytics();
+  initTheme();
+  initLangSwitch();
+  const yearEl = document.getElementById("footer-year");
+  if(yearEl) yearEl.textContent = new Date().getFullYear();
+  if(AMAZON_AFFILIATE_ACTIVE){
+    const banner = document.getElementById("notice-banner");
+    if(banner) banner.insertAdjacentHTML("beforeend", LANG === "es"
+      ? " Como Afiliado de Amazon, esta web obtiene ingresos por las compras adscritas que cumplen los requisitos aplicables."
+      : " As an Amazon Associate, this site earns from qualifying purchases.");
+  }
+  const app = document.getElementById("app");
+  app.innerHTML = `<div class="view empty">${t('spa.loading_catalog')}</div>`;
+  try {
+    State.phones = await apiFetchPhones();
+  } catch (e) {
+    State.apiError = true;
+  }
+  render();
+});
+
+function currentRoute(){
+  const h = location.hash.replace(/^#\/?/,"");
+  const parts = h.split("/").filter(Boolean);
+  return parts;
+}
+
+async function render(){
+  const parts = currentRoute();
+  const app = document.getElementById("app");
+  window.scrollTo(0,0);
+  if(State.apiError){ app.innerHTML = viewApiError(); wireEvents(); return; }
+  if(parts[0] !== "moviles") clearProductSchema();
+  if(parts.length===0) { app.innerHTML = viewHome(); updateMeta(t('spa.site_title'), t('spa.meta_description')); }
+  else if(parts[0]==="quiz") { app.innerHTML = viewQuiz(); updateMeta(t('spa.hero_eyebrow') + " — SmartPhoneMatch", t('spa.meta_description')); }
+  else if(parts[0]==="resultados") {
+    app.innerHTML = await viewResults();
+    const isCatalog = !State.results && Object.keys(State.answers).length===0;
+    updateMeta((isCatalog ? t('spa.all_phones_heading') : t('spa.results_heading')) + " — SmartPhoneMatch", t('spa.meta_description'));
+  }
+  else if(parts[0]==="comparar") { app.innerHTML = viewCompare(); updateMeta(t('spa.compare_heading') + " — SmartPhoneMatch", t('spa.meta_description')); }
+  else if(parts[0]==="moviles" && parts[1]) { app.innerHTML = await viewDetail(parts[1]); }
+  else { app.innerHTML = viewHome(); updateMeta(t('spa.site_title'), t('spa.meta_description')); }
+  wireEvents();
+  trackPageView(location.hash || "#/", document.title);
+}
+
+function viewApiError(){
+  return `<div class="view empty">
+    ${t('spa.api_error', {api: API_BASE})}<br><br>
+    <button class="btn btn-primary" id="retry-api">${t('spa.retry')}</button>
+  </div>`;
+}
+
+// Hueco de anuncio de Google AdSense. Con ADSENSE_CLIENT vacío se ve como
+// una reserva de espacio neutra (para que el layout no salte cuando se
+// activen los anuncios de verdad). runAdSlots() —llamada tras cada
+// render()— es la que realmente pide el anuncio a Google para cada hueco
+// nuevo en la página.
+function adSlot(){
+  if(!ADSENSE_CLIENT) return `<div class="ad-slot"><span class="ad-label">${t('spa.ad_label')}</span><div class="ad-slot-inner">${t('spa.ad_placeholder')}</div></div>`;
+  return `<div class="ad-slot"><span class="ad-label">${t('spa.ad_label')}</span>
+    <ins class="adsbygoogle" style="display:block" data-ad-client="${ADSENSE_CLIENT}" data-ad-slot="${ADSENSE_SLOT}" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  </div>`;
+}
+function runAdSlots(){
+  if(!ADSENSE_CLIENT || typeof window.adsbygoogle === "undefined") return;
+  // Igual que initAnalytics(): nunca se pide un anuncio real sin consentimiento.
+  // Cuando actives AdSense de verdad, además de esto, plantéate usar Google
+  // Funding Choices (gratis, se activa desde el panel de AdSense) para el
+  // consent-mode/IAB TCF que exige mostrar anuncios personalizados en la UE.
+  if(!window.spmConsent || window.spmConsent.get() !== "accepted") return;
+  document.querySelectorAll("ins.adsbygoogle:not([data-ad-status])").forEach(() => {
+    try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+  });
+}
+
+/* =====================================================================
+   COMPONENTES DE UI
+   ===================================================================== */
+const BRAND_COLORS = {
+  samsung:   ['#1428A0','#5B7FFF'],
+  apple:     ['#3A3A3C','#9A9AA2'],
+  xiaomi:    ['#FF6900','#FFA53D'],
+  google:    ['#4285F4','#34A853'],
+  motorola:  ['#5B2A86','#0072CE'],
+  nothing:   ['#232323','#FF3300'],
+  oneplus:   ['#EB0028','#FF6A6A'],
+  oppo:      ['#0D7C4D','#1BA784'],
+  honor:     ['#0A66FF','#5CA8FF'],
+  sony:      ['#0F3B82','#1A78D3'],
+};
+function brandColors(brand){ return BRAND_COLORS[(brand||'').toLowerCase()] || ['#2C8C7E','#45E0C7']; }
+function escAttr(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+// Foto real del producto si existe en images/phones/{slug}.jpg — si no
+// (todavía no se ha subido ninguna foto real), se ve una reserva de
+// espacio neutra en vez de un icono de "demo".
+function phoneMedia(slug, brand, model, size="md"){
+  const px = size==="lg" ? 132 : size==="sm" ? 52 : 92;
+  const alt = escAttr(`${brand||''} ${model||''}`.trim());
+  return `<div class="phone-art" style="width:${px}px;height:${px}px;">
+    <img src="/images/phones/${encodeURIComponent(slug)}.jpg?v=${IMAGES_VERSION}" alt="${alt}" loading="lazy"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <div class="phone-art-fallback">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+    </div>
+  </div>`;
+}
+function gauge(score, size="md"){
+  const cls = size==="lg"?"":(size==="sm"?"gauge-sm":"gauge-md");
+  return `<div class="gauge-wrap ${cls}" style="width:${size==='lg'?220:size==='sm'?64:96}px;height:${size==='lg'?220:size==='sm'?64:96}px;">
+    <div class="gauge" style="--pct:${score}">
+      <div class="gauge-inner"><span class="num">${score}</span><span class="lbl">match</span></div>
+    </div>
+  </div>`;
+}
+function bars(label, val){
+  const segs = Math.round(val/20);
+  let s = "";
+  for(let i=0;i<5;i++) s += `<div class="seg ${i<segs?'on':''}"></div>`;
+  return `<div class="bar-row"><span style="width:78px">${label}</span><div class="segs">${s}</div></div>`;
+}
+function updateMeta(title, description){
+  document.title = title;
+  let metaDesc = document.querySelector('meta[name="description"]');
+  if(metaDesc) metaDesc.setAttribute('content', description);
+  let ogTitle = document.querySelector('meta[property="og:title"]');
+  if(ogTitle) ogTitle.setAttribute('content', title);
+  let ogDesc = document.querySelector('meta[property="og:description"]');
+  if(ogDesc) ogDesc.setAttribute('content', description);
+}
+function setProductSchema(p){
+  let el = document.getElementById('product-schema');
+  if(!el){ el = document.createElement('script'); el.type = 'application/ld+json'; el.id = 'product-schema'; document.head.appendChild(el); }
+  el.textContent = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": `${p.brand} ${p.model}`,
+    "brand": {"@type":"Brand","name":p.brand},
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "EUR",
+      "lowPrice": p.priceMin,
+      "highPrice": p.priceMax,
+      "offerCount": p.retailers.length || 1,
+    },
+  });
+}
+function clearProductSchema(){
+  const el = document.getElementById('product-schema');
+  if(el) el.remove();
+}
+// Mismo formato que fmt_price() en lang/i18n.php: símbolo y separador de
+// miles según el mercado, no solo el idioma, para que si en el futuro un
+// idioma sirve a varios mercados esto siga siendo correcto sin más cambios.
+function priceFmt(n){
+  const num = Number(n).toLocaleString(MARKET === 'US' ? 'en-US' : 'es-ES', {maximumFractionDigits:0, useGrouping:true});
+  return MARKET === 'US' ? `$${num}` : `${num} €`;
+}
+function priceRangeFmt(min,max){ return min===max ? priceFmt(min) : `${priceFmt(min)}–${priceFmt(max)}`; }
+function verifiedBadge(verified){ return verified
+  ? `<span class="chip" style="color:var(--accent);border-color:var(--accent-dim);">${LANG==='es'?'rango verificado':'verified range'}</span>`
+  : `<span class="chip">${LANG==='es'?'rango sin verificar':'unverified range'}</span>`; }
+
+/* ---------- HOME ---------- */
+function viewHome(){
+  return `<section class="view hero">
+    <div>
+      <div class="eyebrow">${t('spa.hero_eyebrow')}</div>
+      <h1>${t('spa.hero_title')}</h1>
+      <p class="sub">${t('spa.hero_sub')}</p>
+      <a href="#/quiz" class="btn btn-primary">${t('spa.hero_cta')}</a>
+    </div>
+    <div class="hero-visual">${gauge(94,"lg")}</div>
+  </section>
+  ${adSlot()}
+  <section class="steps view">
+    <div class="step"><div class="n">01</div><h3>${t('spa.step1_title')}</h3><p class="muted">${t('spa.step1_text')}</p></div>
+    <div class="step"><div class="n">02</div><h3>${t('spa.step2_title')}</h3><p class="muted">${t('spa.step2_text')}</p></div>
+    <div class="step"><div class="n">03</div><h3>${t('spa.step3_title')}</h3><p class="muted">${t('spa.step3_text')}</p></div>
+  </section>`;
+}
+
+/* ---------- QUIZ ---------- */
+function viewQuiz(){
+  const q = QUESTIONS[State.step];
+  if(!q){ navigate("/resultados"); return ""; }
+  const segs = QUESTIONS.map((_,i)=>`<div class="progress-seg ${i<State.step?'done':''}"></div>`).join("");
+  const opts = q.options.map(v=>{
+    const sel = State.answers[q.key]===v;
+    return `<button type="button" class="option ${sel?'sel':''}" data-key="${q.key}" data-val="${v}" aria-pressed="${sel}">
+      <span>${t('q.'+q.key+'.'+v)}</span><span class="check" aria-hidden="true"></span></button>`;
+  }).join("");
+  return `<section class="view quiz-card">
+    <div class="progress-label mono">${t('spa.question_progress',{n:State.step+1,total:QUESTIONS.length})}</div>
+    <div class="progress-track">${segs}</div>
+    <h2>${t('q.'+q.key)}</h2>
+    <div class="options">${opts}</div>
+    <div class="quiz-nav">
+      <button class="btn btn-ghost" id="q-back" ${State.step===0?'disabled':''}>${t('spa.back')}</button>
+      <button class="btn btn-primary" id="q-next" ${State.answers[q.key]?'':'disabled'}>${State.step===QUESTIONS.length-1?t('spa.see_results'):t('spa.next')}</button>
+    </div>
+  </section>`;
+}
+
+/* ---------- TODOS LOS MÓVILES (catálogo completo) ----------
+   Antes esta vista exigía haber hecho el cuestionario. Ahora, si no hay
+   respuestas todavía, muestra el catálogo COMPLETO (todo State.phones, ya
+   cargado una sola vez al entrar en la web — no se duplica ni se vuelve a
+   pedir nada) con búsqueda por texto y filtro por marca/presupuesto en
+   cliente. Si el usuario SÍ ha hecho el test, se mantiene el
+   comportamiento de siempre: el ranking de resultados. */
+function viewCatalog(){
+  const brands = Array.from(new Set(State.phones.map(p=>p.brand))).sort();
+  const q = (State.catalogSearch||"").trim().toLowerCase();
+  const filtered = State.phones.filter(p=>{
+    if(State.catalogBrand && p.brand !== State.catalogBrand) return false;
+    if(State.catalogBudget){
+      const [lo,hi] = State.catalogBudget.split("-").map(Number);
+      if(p.priceMax < lo || (hi && p.priceMin > hi)) return false;
+    }
+    if(q && !(`${p.brand} ${p.model}`.toLowerCase().includes(q))) return false;
+    return true;
+  }).sort((a,b)=> (b.verified - a.verified) || (b.scores.value - a.scores.value));
+
+  const cur = n => MARKET === 'US' ? `$${n}` : `${n} €`;
+  const range = (lo,hi) => MARKET === 'US' ? `$${lo}-${hi}` : `${lo}-${hi} €`;
+  const budgetOptions = [
+    ["", t('spa.filter_all_budgets')], ["0-200", `< ${cur(200)}`], ["200-300", range(200,300)],
+    ["300-500", range(300,500)], ["500-800", range(500,800)], ["800-99999", `${cur(800)}+`],
+  ];
+
+  const cards = filtered.map(p=>`
+    <div class="deal-card">
+      ${phoneMedia(p.slug, p.brand, p.model, 'sm')}
+      <div>
+        <div class="deal-brand" style="font-size:11.5px;color:var(--text-faint);font-family:var(--font-mono);">${p.brand.toUpperCase()}</div>
+        <div class="deal-name" style="font-weight:600;font-size:14.5px;">${p.model}</div>
+      </div>
+      <div class="deal-price" style="font-family:var(--font-mono);color:var(--accent);font-size:15px;">~${priceRangeFmt(p.priceMin,p.priceMax)}</div>
+      <a class="btn btn-ghost btn-sm" style="justify-content:center;" href="#/moviles/${p.slug}">${t('spa.view_sheet')}</a>
+    </div>
+  `).join("");
+
+  return `<section class="view">
+    <div class="section-head"><h2>${t('spa.all_phones_heading')}</h2></div>
+    <p class="muted">${t('spa.all_phones_sub')}</p>
+    <div class="filter-bar" style="display:flex;flex-wrap:wrap;gap:10px;margin:20px 0;">
+      <input type="search" id="catalog-search" class="deals-search" style="flex:1;min-width:200px;background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:9px 14px;font-family:var(--font-body);font-size:13.5px;" placeholder="${t('spa.search_placeholder')}" value="${escAttr(State.catalogSearch)}">
+      <select id="catalog-brand" class="sort-select" style="background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-family:var(--font-body);font-size:13.5px;">
+        <option value="">${t('spa.filter_all_brands')}</option>
+        ${brands.map(b=>`<option value="${escAttr(b)}" ${State.catalogBrand===b?'selected':''}>${b}</option>`).join("")}
+      </select>
+      <select id="catalog-budget" class="sort-select" style="background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-family:var(--font-body);font-size:13.5px;">
+        ${budgetOptions.map(([v,l])=>`<option value="${v}" ${State.catalogBudget===v?'selected':''}>${l}</option>`).join("")}
+      </select>
+    </div>
+    ${adSlot()}
+    ${filtered.length ? `<div class="deal-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:6px;">${cards}</div>`
+      : `<div class="empty">${t('spa.no_results_catalog')}</div>`}
+    <p style="margin-top:24px;"><a class="chip" href="#/quiz">${t('spa.take_quiz_instead')}</a></p>
+  </section>`;
+}
+
+/* ---------- RESULTADOS ---------- */
+async function viewResults(){
+  if(!State.results){
+    if(Object.keys(State.answers).length===0){
+      return viewCatalog();
+    }
+    try {
+      State.results = await apiRecommend(State.answers);
+    } catch(e){
+      return `<div class="view empty">${t('spa.results_error')}<br><br><a class="btn btn-primary" href="#/quiz">${t('spa.retry_quiz')}</a></div>`;
+    }
+  }
+  const r = State.results;
+  if(r.length===0){
+    const osTxt = State.answers.os==="iOS" ? "iPhone" : (State.answers.os==="Android" ? "Android" : (LANG==='es'?"ese sistema":"that OS"));
+    return `<div class="view empty">
+      ${t('spa.no_match_in_budget', {os: osTxt, count: State.phones.length})}<br><br>
+      <button class="btn btn-primary btn-sm" id="jump-budget">${t('spa.change_budget')}</button>
+      <a class="btn btn-ghost btn-sm" href="#/quiz" id="redo-empty" style="margin-left:8px;">${t('spa.retry_quiz')}</a>
+    </div>`;
+  }
+  const medals = [t('spa.medal_1'), t('spa.medal_2'), t('spa.medal_3')];
+  const top3 = r.slice(0,3).map((res,i)=>{
+    const p = res.phone;
+    return `<div class="top-pick" style="margin-top:14px;${i===0?'':'opacity:.92'}">
+      ${phoneMedia(p.slug, p.brand, p.model, i===0?'lg':'md')}
+      ${gauge(res.score, i===0?'lg':'md')}
+      <div>
+        <div class="medal">${medals[i]}</div>
+        <div class="phone-name">${p.brand} ${p.model}</div>
+        <div class="price-tag mono">${res.refurbMatch ? `~${priceRangeFmt(p.refurbMin,p.refurbMax)} <span class="faint" style="font-size:12px;">${t('spa.refurbished')} · ${t('spa.new_from',{price: priceRangeFmt(p.priceMin,p.priceMax)})}</span>` : `~${priceRangeFmt(p.priceMin,p.priceMax)}`}</div>
+        <div class="reasons">
+          ${res.pros.map(x=>`<div class="pro">${x}</div>`).join("")}
+          ${res.cons.map(x=>`<div class="con">${x}</div>`).join("")}
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <a class="btn btn-ghost btn-sm" href="#/moviles/${p.slug}">${t('spa.view_phone')}</a>
+        <button class="btn btn-warm btn-sm add-compare" data-slug="${p.slug}">${t('spa.compare_btn')}</button>
+      </div>
+    </div>`;
+  }).join("");
+
+  const rest = r.slice(3).map((res,i)=>{
+    const p = res.phone;
+    return `<div class="rank-row" style="border-left:3px solid ${brandColors(p.brand)[1]};">
+      <span class="rank-idx">${i+4}</span>
+      <div>${gauge(res.score,'sm')}</div>
+      <div>
+        <div style="font-weight:600;">${p.brand} ${p.model}</div>
+        <div class="faint mono" style="font-size:12px;">~${priceRangeFmt(p.priceMin,p.priceMax)}</div>
+      </div>
+      <a class="btn btn-ghost btn-sm" href="#/moviles/${p.slug}">${t('spa.view_sheet')}</a>
+      <button class="btn btn-ghost btn-sm add-compare" data-slug="${p.slug}">${t('spa.compare_btn_add')}</button>
+    </div>`;
+  }).join("");
+
+  return `<section class="view">
+    <div class="section-head"><h2>${t('spa.results_heading')}</h2>
+      <a href="#/quiz" class="chip" id="redo-quiz" style="cursor:pointer">↺ ${t('spa.retry_quiz')}</a>
+    </div>
+    ${top3}
+    ${adSlot()}
+    ${rest ? `<div class="section-head"><h2 style="font-size:17px;">${t('spa.all_results_heading')}</h2></div><div class="rank-list">${rest}</div>` : ""}
+  </section>`;
+}
+
+/* ---------- FICHA DE PRODUCTO ---------- */
+async function viewDetail(slug){
+  let p;
+  try {
+    p = await apiFetchPhoneDetail(slug);
+  } catch(e) {
+    updateMeta(t('spa.detail_not_found') + " — SmartPhoneMatch", t('spa.meta_description'));
+    return `<div class="view empty">${t('spa.detail_not_found')}<br><br><a class="btn btn-ghost" href="#/resultados">${t('spa.back_button')}</a></div>`;
+  }
+  updateMeta(`${p.brand} ${p.model} — SmartPhoneMatch`, t('spa.meta_description'));
+  setProductSchema(p);
+  const sp = p.specs, sc = p.scores;
+  const SPEC_LABELS = LANG === 'es'
+    ? ["Pantalla","Tasa de refresco","Procesador","RAM","Almacenamiento","Batería","Carga rápida","Cámara principal","Ultra gran angular","Teleobjetivo","Cámara frontal","Peso","Resistencia","Años de actualizaciones","5G","NFC","eSIM","Carga inalámbrica"]
+    : ["Screen","Refresh rate","Processor","RAM","Storage","Battery","Fast charging","Main camera","Ultra-wide","Telephoto","Front camera","Weight","Water resistance","Years of updates","5G","NFC","eSIM","Wireless charging"];
+  const yesNo = v => v ? (LANG==='es'?"Sí":"Yes") : (LANG==='es'?"No":"No");
+  const specVals = [sp.screen,sp.refresh,sp.cpu,sp.ram,sp.storage,sp.battery,sp.fast,sp.main,sp.ultrawide,sp.tele,sp.front,sp.weight,sp.water,sp.updates,yesNo(sp.g5),yesNo(sp.nfc),yesNo(sp.esim),yesNo(sp.wireless)];
+  const specRows = SPEC_LABELS.map((l,i)=>[l, specVals[i]]);
+  const entries = Object.entries(sc).sort((a,b)=>b[1]-a[1]);
+  const prosAuto = entries.slice(0,2).map(([k])=>autoProLabel(k));
+  const consAuto = entries.slice(-2).map(([k])=>autoConLabel(k));
+  const offers = p.retailers.map(r=>`<div class="offer-row">
+      <span class="r-name">${r.name}</span>
+      <a class="btn btn-primary btn-sm js-offer-click" data-retailer="${escAttr(r.name)}" data-phone="${escAttr(p.slug)}" href="${r.url}" target="_blank" rel="noopener noreferrer sponsored">${LANG==='es'?'Buscar en':'Search on'} ${r.name}</a>
+    </div>`).join("");
+  const refurbOffers = p.refurbRetailers.map(r=>`<div class="offer-row">
+      <span class="r-name">${r.name} <span class="chip" style="margin-left:6px;">${LANG==='es'?'Reacondicionado':'Refurbished'} · ${r.grade}</span></span>
+      <a class="btn btn-ghost btn-sm js-offer-click" data-retailer="${escAttr(r.name)}" data-phone="${escAttr(p.slug)}" href="${r.url}" target="_blank" rel="noopener noreferrer sponsored">${LANG==='es'?'Buscar en':'Search on'} ${r.name}</a>
+    </div>`).join("");
+  const scoreLabels = LANG==='es' ? ["Cámara","Rendimiento","Gaming","Batería","Pantalla","Calidad/precio"] : ["Camera","Performance","Gaming","Battery","Screen","Value"];
+
+  return `<section class="view">
+    <div class="detail-head">
+      ${phoneMedia(p.slug, p.brand, p.model, 'lg')}
+      ${gauge(Math.round((sc.camera+sc.performance+sc.battery+sc.screen+sc.gaming+sc.value)/6),'lg')}
+      <div>
+        <div class="eyebrow">${p.brand} · ${p.os}</div>
+        <h1>${p.model}</h1>
+        <div class="price-tag mono" style="margin-top:8px;">~${priceRangeFmt(p.priceMin,p.priceMax)} ${verifiedBadge(p.verified)}</div>
+      </div>
+      <button class="btn btn-warm add-compare" data-slug="${p.slug}">${t('spa.compare_btn_add')}</button>
+    </div>
+
+    <div class="bars" style="margin-top:10px;">
+      ${bars(scoreLabels[0],sc.camera)}${bars(scoreLabels[1],sc.performance)}${bars(scoreLabels[2],sc.gaming)}
+      ${bars(scoreLabels[3],sc.battery)}${bars(scoreLabels[4],sc.screen)}${bars(scoreLabels[5],sc.value)}
+    </div>
+
+    <div class="spec-grid">${specRows.map(([l,v])=>`<div class="spec-row"><span>${l.toUpperCase()}</span><span>${v}</span></div>`).join("")}</div>
+
+    <div class="two-col">
+      <div class="pros-box"><h4>${t('spa.advantages')}</h4><ul>${prosAuto.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+      <div class="cons-box"><h4>${t('spa.know_before')}</h4><ul>${consAuto.map(x=>`<li>${x}</li>`).join("")}<li>${t('spa.no_charger')}</li></ul></div>
+    </div>
+
+    <div class="section-head"><h2 style="font-size:17px;">${t('spa.where_to_buy')}</h2></div>
+    <div class="offers">${offers}</div>
+
+    ${p.refurbRetailers.length ? `<div class="section-head"><h2 style="font-size:17px;">${t('spa.refurbished_heading')}</h2><span class="chip">~${priceRangeFmt(p.refurbMin,p.refurbMax)}</span></div>
+    <div class="offers">${refurbOffers}</div>` : ''}
+
+    ${adSlot()}
+
+    <div class="cta-strip">
+      <div><h3 style="font-size:17px;">${t('spa.detail_cta_title')}</h3><p class="muted" style="margin:4px 0 0;font-size:13.5px;">${t('spa.detail_cta_text')}</p></div>
+      <a class="btn btn-primary" href="#/quiz">${t('spa.check')}</a>
+    </div>
+  </section>`;
+}
+function autoProLabel(key){
+  const labels = {camera:t('spa.pro_camera'),performance:t('spa.pro_performance'),gaming:t('spa.pro_gaming'),battery:t('spa.pro_battery'),screen:t('spa.pro_screen'),value:t('spa.pro_value')};
+  return labels[key];
+}
+function autoConLabel(key){
+  const labels = {camera:t('spa.con_camera'),performance:t('spa.con_performance'),gaming:t('spa.con_gaming'),battery:t('spa.con_battery'),screen:t('spa.con_screen'),value:t('spa.con_value')};
+  return labels[key];
+}
+
+/* ---------- COMPARADOR ---------- */
+function viewCompare(){
+  const set = State.compareSet;
+  const slots = [0,1,2,3].map(i=>{
+    const slug = set[i];
+    if(!slug) return `<div class="cmp-slot">${t('spa.slot_empty',{n:i+1})}</div>`;
+    const p = State.phones.find(x=>x.slug===slug);
+    if(!p) return `<div class="cmp-slot">${t('spa.slot_empty',{n:i+1})}</div>`;
+    return `<div class="cmp-slot filled">${p.brand} ${p.model} <span class="remove-compare" data-slug="${slug}" style="cursor:pointer;color:var(--warm);">✕</span></div>`;
+  }).join("");
+
+  if(set.length<2){
+    return `<section class="view">
+      <div class="section-head"><h2>${t('spa.compare_heading')}</h2></div>
+      <p class="muted">${t('spa.compare_help')}</p>
+      <div class="cmp-pick-bar">${slots}</div>
+      <a class="btn btn-ghost" href="#/resultados" style="margin-top:20px;">${t('spa.go_to_results')}</a>
+    </section>`;
+  }
+
+  const phones = set.map(s=>State.phones.find(x=>x.slug===s)).filter(Boolean);
+  const L = LANG === 'es'
+    ? ["Precio orientativo","Pantalla","Procesador","RAM","Batería","Cámara","Gaming","Carga rápida","Peso","Actualizaciones","5G","eSIM"]
+    : ["Estimated price","Screen","Processor","RAM","Battery","Camera","Gaming","Fast charging","Weight","Updates","5G","eSIM"];
+  const yrs = LANG==='es' ? ' años' : ' yrs';
+  const yn = v => v ? (LANG==='es'?"Sí":"Yes") : "No";
+  const rows = [
+    [L[0], p=>`~${priceRangeFmt(p.priceMin,p.priceMax)}`, p=>(p.priceMin+p.priceMax)/2, "min"],
+    [L[1], p=>p.specs.screen],
+    [L[2], p=>p.specs.cpu],
+    [L[3], p=>p.specs.ram],
+    [L[4], p=>p.specs.battery],
+    [L[5], p=>p.scores.camera+"/100", p=>p.scores.camera, "max"],
+    [L[6], p=>p.scores.gaming+"/100", p=>p.scores.gaming, "max"],
+    [L[7], p=>p.specs.fast],
+    [L[8], p=>p.specs.weight],
+    [L[9], p=>p.specs.updates+yrs, p=>p.specs.updates, "max"],
+    [L[10], p=>yn(p.specs.g5)],
+    [L[11], p=>yn(p.specs.esim)],
+  ];
+  const thead = `<tr><th>${LANG==='es'?'Característica':'Feature'}</th>${phones.map(p=>`<th><div class="th-phone">${phoneMedia(p.slug,p.brand,p.model,'sm')}<span>${p.brand} ${p.model}</span></div></th>`).join("")}</tr>`;
+  const tbody = rows.map(([label,get,cmpVal,mode])=>{
+    let winIdx = -1;
+    if(cmpVal){
+      const vals = phones.map(cmpVal);
+      const best = mode==="min"?Math.min(...vals):Math.max(...vals);
+      winIdx = vals.indexOf(best);
+    }
+    return `<tr><td class="spec-label">${label}</td>${phones.map((p,i)=>`<td class="${i===winIdx?'win':''}">${get(p)}</td>`).join("")}</tr>`;
+  }).join("");
+
+  return `<section class="view">
+    <div class="section-head"><h2>${t('spa.compare_heading')}</h2><span class="chip">${phones.map(p=>p.model).join(" vs ")}</span></div>
+    <div class="cmp-pick-bar">${slots}</div>
+    <table class="cmp"><thead>${thead}</thead><tbody>${tbody}</tbody></table>
+    ${adSlot()}
+  </section>`;
+}
+
+/* =====================================================================
+   EVENTOS
+   ===================================================================== */
+function wireEvents(){
+  document.querySelectorAll(".option").forEach(el=>{
+    el.addEventListener("click",()=>{
+      State.answers[el.dataset.key] = el.dataset.val;
+      render();
+    });
+  });
+  const back = document.getElementById("q-back");
+  if(back) back.addEventListener("click",()=>{ State.step=Math.max(0,State.step-1); render(); });
+  const next = document.getElementById("q-next");
+  if(next) next.addEventListener("click", async ()=>{
+    if(State.step===QUESTIONS.length-1){
+      const label = next.textContent;
+      next.disabled = true; next.textContent = LANG==='es'?"Calculando...":"Calculating...";
+      try {
+        State.results = await apiRecommend(State.answers);
+        navigate("/resultados");
+      } catch(e){
+        next.disabled = false; next.textContent = label;
+        alert(t('spa.results_error'));
+      }
+    }
+    else { State.step++; render(); }
+  });
+  const redo = document.getElementById("redo-quiz");
+  if(redo) redo.addEventListener("click",(e)=>{ e.preventDefault(); State.step=0; State.answers={}; State.results=null; navigate("/quiz"); });
+  const jumpBudget = document.getElementById("jump-budget");
+  if(jumpBudget) jumpBudget.addEventListener("click",()=>{ State.step=0; State.results=null; navigate("/quiz"); });
+  const redoEmpty = document.getElementById("redo-empty");
+  if(redoEmpty) redoEmpty.addEventListener("click",(e)=>{ e.preventDefault(); State.step=0; State.answers={}; State.results=null; navigate("/quiz"); });
+  document.querySelectorAll(".add-compare").forEach(el=>{
+    el.addEventListener("click",()=>{
+      const slug = el.dataset.slug;
+      if(!State.compareSet.includes(slug) && State.compareSet.length<4) State.compareSet.push(slug);
+      navigate("/comparar");
+    });
+  });
+  document.querySelectorAll(".remove-compare").forEach(el=>{
+    el.addEventListener("click",()=>{
+      State.compareSet = State.compareSet.filter(s=>s!==el.dataset.slug);
+      render();
+    });
+  });
+  const retry = document.getElementById("retry-api");
+  if(retry) retry.addEventListener("click", async ()=>{
+    retry.disabled = true; retry.textContent = t('spa.retrying');
+    try {
+      State.phones = await apiFetchPhones();
+      State.apiError = null;
+      render();
+    } catch(e){
+      retry.disabled = false; retry.textContent = t('spa.retry');
+    }
+  });
+  document.querySelectorAll(".js-offer-click").forEach(el=>{
+    el.addEventListener("click",()=>{
+      trackEvent("click_offer", { retailer: el.dataset.retailer, phone_slug: el.dataset.phone });
+    });
+  });
+  // Catálogo completo ("Todos los móviles" sin respuestas de test): búsqueda
+  // y filtros en cliente sobre State.phones, ya cargado — sin pedir nada
+  // nuevo a la API.
+  const cSearch = document.getElementById("catalog-search");
+  if(cSearch) cSearch.addEventListener("input", ()=>{
+    // render() reemplaza todo el innerHTML de #app, lo que borraría el foco
+    // del campo en cada letra si no lo restauramos después.
+    const pos = cSearch.selectionStart;
+    State.catalogSearch = cSearch.value;
+    render();
+    const fresh = document.getElementById("catalog-search");
+    if(fresh){ fresh.focus(); fresh.setSelectionRange(pos, pos); }
+  });
+  const cBrand = document.getElementById("catalog-brand");
+  if(cBrand) cBrand.addEventListener("change", ()=>{ State.catalogBrand = cBrand.value; render(); });
+  const cBudget = document.getElementById("catalog-budget");
+  if(cBudget) cBudget.addEventListener("change", ()=>{ State.catalogBudget = cBudget.value; render(); });
+  runAdSlots();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Generado por graphify — cache y artefactos, no es código fuente
+graphify-out/
+
+# Config local de Claude Code
+.claude/
+
+# Paquetes de skills de Claude Code, no forman parte de la web
+skills/*.zip
+
+# Sistema
+Thumbs.db
+.DS_Store

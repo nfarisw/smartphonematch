@@ -1,0 +1,1768 @@
+{
+  "brands": [
+    {
+      "slug": "xiaomi",
+      "name": "Xiaomi"
+    },
+    {
+      "slug": "samsung",
+      "name": "Samsung"
+    },
+    {
+      "slug": "motorola",
+      "name": "Motorola"
+    },
+    {
+      "slug": "nothing",
+      "name": "Nothing"
+    },
+    {
+      "slug": "google",
+      "name": "Google"
+    },
+    {
+      "slug": "oneplus",
+      "name": "OnePlus"
+    },
+    {
+      "slug": "apple",
+      "name": "Apple"
+    },
+    {
+      "slug": "oppo",
+      "name": "OPPO"
+    },
+    {
+      "slug": "honor",
+      "name": "HONOR"
+    },
+    {
+      "slug": "sony",
+      "name": "Sony"
+    }
+  ],
+  "retailers": [
+    {
+      "slug": "amazon",
+      "name": "Amazon"
+    },
+    {
+      "slug": "mediamarkt",
+      "name": "MediaMarkt"
+    },
+    {
+      "slug": "pccomponentes",
+      "name": "PcComponentes"
+    },
+    {
+      "slug": "backmarket",
+      "name": "Back Market"
+    },
+    {
+      "slug": "cex",
+      "name": "CeX"
+    }
+  ],
+  "smartphones": [
+    {
+      "slug": "redmi-note-13",
+      "brand_slug": "xiaomi",
+      "model": "Redmi Note 13",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.67\" AMOLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Snapdragon 685",
+      "ram": "8 GB",
+      "storage": "256 GB",
+      "battery_mah": "5000 mAh",
+      "fast_charging": "33 W",
+      "main_camera": "108 MP",
+      "ultrawide_camera": "8 MP",
+      "telephoto": "—",
+      "front_camera": "16 MP",
+      "weight": "188 g",
+      "water_resistance": "IP54",
+      "update_years": 2,
+      "has_5g": false,
+      "has_nfc": true,
+      "has_esim": false,
+      "wireless_charging": false,
+      "photo_score": 60,
+      "performance_score": 55,
+      "gaming_score": 50,
+      "battery_score": 80,
+      "screen_score": 65,
+      "value_score": 90,
+      "price_min": 179,
+      "price_max": 220,
+      "refurb_price_min": 105,
+      "refurb_price_max": 165,
+      "price_verified": true,
+      "price_checked_at": "2026-09-16",
+      "is_demo_data": false,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "galaxy-a15",
+      "brand_slug": "samsung",
+      "model": "Galaxy A15",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.5\" AMOLED",
+      "refresh_rate": "90 Hz",
+      "processor": "Helio G99",
+      "ram": "6 GB",
+      "storage": "128 GB",
+      "battery_mah": "5000 mAh",
+      "fast_charging": "25 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "5 MP",
+      "telephoto": "—",
+      "front_camera": "13 MP",
+      "weight": "200 g",
+      "water_resistance": "No",
+      "update_years": 4,
+      "has_5g": false,
+      "has_nfc": true,
+      "has_esim": false,
+      "wireless_charging": false,
+      "photo_score": 55,
+      "performance_score": 50,
+      "gaming_score": 45,
+      "battery_score": 78,
+      "screen_score": 60,
+      "value_score": 85,
+      "price_min": 110,
+      "price_max": 190,
+      "refurb_price_min": 65,
+      "refurb_price_max": 145,
+      "price_verified": true,
+      "price_checked_at": "2026-09-16",
+      "is_demo_data": false,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "moto-g54",
+      "brand_slug": "motorola",
+      "model": "Moto G54",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.5\" IPS",
+      "refresh_rate": "120 Hz",
+      "processor": "Dimensity 7020",
+      "ram": "8 GB",
+      "storage": "256 GB",
+      "battery_mah": "5000 mAh",
+      "fast_charging": "33 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "8 MP",
+      "telephoto": "—",
+      "front_camera": "16 MP",
+      "weight": "191 g",
+      "water_resistance": "IP52",
+      "update_years": 2,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": false,
+      "wireless_charging": false,
+      "photo_score": 58,
+      "performance_score": 52,
+      "gaming_score": 55,
+      "battery_score": 82,
+      "screen_score": 58,
+      "value_score": 88,
+      "price_min": 125,
+      "price_max": 220,
+      "refurb_price_min": 75,
+      "refurb_price_max": 165,
+      "price_verified": true,
+      "price_checked_at": "2026-09-16",
+      "is_demo_data": false,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "galaxy-a35",
+      "brand_slug": "samsung",
+      "model": "Galaxy A35",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.6\" AMOLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Exynos 1380",
+      "ram": "8 GB",
+      "storage": "256 GB",
+      "battery_mah": "5000 mAh",
+      "fast_charging": "25 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "8 MP",
+      "telephoto": "—",
+      "front_camera": "13 MP",
+      "weight": "209 g",
+      "water_resistance": "IP67",
+      "update_years": 4,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": false,
+      "wireless_charging": false,
+      "photo_score": 68,
+      "performance_score": 60,
+      "gaming_score": 58,
+      "battery_score": 75,
+      "screen_score": 72,
+      "value_score": 85,
+      "price_min": 245,
+      "price_max": 380,
+      "refurb_price_min": 145,
+      "refurb_price_max": 285,
+      "price_verified": true,
+      "price_checked_at": "2026-09-16",
+      "is_demo_data": false,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "nothing-phone-2a",
+      "brand_slug": "nothing",
+      "model": "Phone (2a)",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.7\" AMOLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Dimensity 7200 Pro",
+      "ram": "8 GB",
+      "storage": "256 GB",
+      "battery_mah": "5000 mAh",
+      "fast_charging": "45 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "50 MP",
+      "telephoto": "—",
+      "front_camera": "32 MP",
+      "weight": "190 g",
+      "water_resistance": "IP54",
+      "update_years": 3,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": false,
+      "wireless_charging": false,
+      "photo_score": 70,
+      "performance_score": 65,
+      "gaming_score": 60,
+      "battery_score": 80,
+      "screen_score": 75,
+      "value_score": 84,
+      "price_min": 290,
+      "price_max": 390,
+      "refurb_price_min": 175,
+      "refurb_price_max": 295,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "pixel-8a",
+      "brand_slug": "google",
+      "model": "Pixel 8a",
+      "os": "Android",
+      "size_category": "compacto",
+      "screen_size": "6.1\" OLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Google Tensor G3",
+      "ram": "8 GB",
+      "storage": "128 GB",
+      "battery_mah": "4492 mAh",
+      "fast_charging": "18 W",
+      "main_camera": "64 MP",
+      "ultrawide_camera": "13 MP",
+      "telephoto": "—",
+      "front_camera": "13 MP",
+      "weight": "188 g",
+      "water_resistance": "IP67",
+      "update_years": 6,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": true,
+      "wireless_charging": true,
+      "photo_score": 90,
+      "performance_score": 75,
+      "gaming_score": 65,
+      "battery_score": 72,
+      "screen_score": 78,
+      "value_score": 82,
+      "price_min": 320,
+      "price_max": 430,
+      "refurb_price_min": 190,
+      "refurb_price_max": 325,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "galaxy-a55",
+      "brand_slug": "samsung",
+      "model": "Galaxy A55",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.6\" AMOLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Exynos 1480",
+      "ram": "8 GB",
+      "storage": "256 GB",
+      "battery_mah": "5000 mAh",
+      "fast_charging": "25 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "12 MP",
+      "telephoto": "5 MP",
+      "front_camera": "32 MP",
+      "weight": "213 g",
+      "water_resistance": "IP67",
+      "update_years": 4,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": false,
+      "wireless_charging": false,
+      "photo_score": 75,
+      "performance_score": 68,
+      "gaming_score": 62,
+      "battery_score": 78,
+      "screen_score": 80,
+      "value_score": 80,
+      "price_min": 340,
+      "price_max": 460,
+      "refurb_price_min": 205,
+      "refurb_price_max": 345,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "nord-4",
+      "brand_slug": "oneplus",
+      "model": "Nord 4",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.74\" AMOLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Snapdragon 7+ Gen 3",
+      "ram": "8 GB",
+      "storage": "256 GB",
+      "battery_mah": "5500 mAh",
+      "fast_charging": "100 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "8 MP",
+      "telephoto": "—",
+      "front_camera": "16 MP",
+      "weight": "199 g",
+      "water_resistance": "IP65",
+      "update_years": 3,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": false,
+      "wireless_charging": false,
+      "photo_score": 76,
+      "performance_score": 82,
+      "gaming_score": 80,
+      "battery_score": 85,
+      "screen_score": 78,
+      "value_score": 83,
+      "price_min": 380,
+      "price_max": 520,
+      "refurb_price_min": 230,
+      "refurb_price_max": 390,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "galaxy-s24-fe",
+      "brand_slug": "samsung",
+      "model": "Galaxy S24 FE",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.7\" AMOLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Exynos 2400e",
+      "ram": "8 GB",
+      "storage": "256 GB",
+      "battery_mah": "4700 mAh",
+      "fast_charging": "25 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "12 MP",
+      "telephoto": "8 MP",
+      "front_camera": "10 MP",
+      "weight": "213 g",
+      "water_resistance": "IP68",
+      "update_years": 5,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": true,
+      "wireless_charging": true,
+      "photo_score": 85,
+      "performance_score": 82,
+      "gaming_score": 78,
+      "battery_score": 80,
+      "screen_score": 85,
+      "value_score": 78,
+      "price_min": 490,
+      "price_max": 660,
+      "refurb_price_min": 295,
+      "refurb_price_max": 495,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "iphone-se",
+      "brand_slug": "apple",
+      "model": "iPhone SE (3ª gen)",
+      "os": "iOS",
+      "size_category": "compacto",
+      "screen_size": "4.7\" IPS",
+      "refresh_rate": "60 Hz",
+      "processor": "A15 Bionic",
+      "ram": "4 GB",
+      "storage": "128 GB",
+      "battery_mah": "2018 mAh",
+      "fast_charging": "20 W",
+      "main_camera": "12 MP",
+      "ultrawide_camera": "—",
+      "telephoto": "—",
+      "front_camera": "7 MP",
+      "weight": "144 g",
+      "water_resistance": "IP67",
+      "update_years": 5,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": true,
+      "wireless_charging": true,
+      "photo_score": 65,
+      "performance_score": 80,
+      "gaming_score": 75,
+      "battery_score": 60,
+      "screen_score": 55,
+      "value_score": 68,
+      "price_min": 430,
+      "price_max": 570,
+      "refurb_price_min": 260,
+      "refurb_price_max": 430,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "iphone-15",
+      "brand_slug": "apple",
+      "model": "iPhone 15",
+      "os": "iOS",
+      "size_category": "compacto",
+      "screen_size": "6.1\" OLED",
+      "refresh_rate": "60 Hz",
+      "processor": "A16 Bionic",
+      "ram": "6 GB",
+      "storage": "128 GB",
+      "battery_mah": "3349 mAh",
+      "fast_charging": "20 W",
+      "main_camera": "48 MP",
+      "ultrawide_camera": "12 MP",
+      "telephoto": "—",
+      "front_camera": "12 MP",
+      "weight": "171 g",
+      "water_resistance": "IP68",
+      "update_years": 6,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": true,
+      "wireless_charging": true,
+      "photo_score": 88,
+      "performance_score": 88,
+      "gaming_score": 82,
+      "battery_score": 78,
+      "screen_score": 82,
+      "value_score": 70,
+      "price_min": 700,
+      "price_max": 830,
+      "refurb_price_min": 420,
+      "refurb_price_max": 625,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "pixel-9",
+      "brand_slug": "google",
+      "model": "Pixel 9",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.3\" OLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Google Tensor G4",
+      "ram": "12 GB",
+      "storage": "128 GB",
+      "battery_mah": "4700 mAh",
+      "fast_charging": "27 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "48 MP",
+      "telephoto": "—",
+      "front_camera": "10.5 MP",
+      "weight": "198 g",
+      "water_resistance": "IP68",
+      "update_years": 7,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": true,
+      "wireless_charging": true,
+      "photo_score": 95,
+      "performance_score": 85,
+      "gaming_score": 78,
+      "battery_score": 80,
+      "screen_score": 85,
+      "value_score": 75,
+      "price_min": 680,
+      "price_max": 820,
+      "refurb_price_min": 410,
+      "refurb_price_max": 615,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "galaxy-s24",
+      "brand_slug": "samsung",
+      "model": "Galaxy S24",
+      "os": "Android",
+      "size_category": "compacto",
+      "screen_size": "6.2\" AMOLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Snapdragon 8 Gen 3",
+      "ram": "8 GB",
+      "storage": "256 GB",
+      "battery_mah": "4000 mAh",
+      "fast_charging": "25 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "12 MP",
+      "telephoto": "10 MP",
+      "front_camera": "12 MP",
+      "weight": "167 g",
+      "water_resistance": "IP68",
+      "update_years": 7,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": true,
+      "wireless_charging": true,
+      "photo_score": 90,
+      "performance_score": 88,
+      "gaming_score": 85,
+      "battery_score": 82,
+      "screen_score": 90,
+      "value_score": 75,
+      "price_min": 700,
+      "price_max": 870,
+      "refurb_price_min": 420,
+      "refurb_price_max": 655,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "iphone-15-pro",
+      "brand_slug": "apple",
+      "model": "iPhone 15 Pro",
+      "os": "iOS",
+      "size_category": "normal",
+      "screen_size": "6.1\" OLED",
+      "refresh_rate": "120 Hz",
+      "processor": "A17 Pro",
+      "ram": "8 GB",
+      "storage": "256 GB",
+      "battery_mah": "3274 mAh",
+      "fast_charging": "27 W",
+      "main_camera": "48 MP",
+      "ultrawide_camera": "12 MP",
+      "telephoto": "12 MP",
+      "front_camera": "12 MP",
+      "weight": "187 g",
+      "water_resistance": "IP68",
+      "update_years": 7,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": true,
+      "wireless_charging": true,
+      "photo_score": 94,
+      "performance_score": 96,
+      "gaming_score": 92,
+      "battery_score": 80,
+      "screen_score": 90,
+      "value_score": 65,
+      "price_min": 900,
+      "price_max": 1060,
+      "refurb_price_min": 540,
+      "refurb_price_max": 795,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "galaxy-s24-ultra",
+      "brand_slug": "samsung",
+      "model": "Galaxy S24 Ultra",
+      "os": "Android",
+      "size_category": "grande",
+      "screen_size": "6.8\" AMOLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Snapdragon 8 Gen 3",
+      "ram": "12 GB",
+      "storage": "256 GB",
+      "battery_mah": "5000 mAh",
+      "fast_charging": "45 W",
+      "main_camera": "200 MP",
+      "ultrawide_camera": "12 MP",
+      "telephoto": "50 MP",
+      "front_camera": "12 MP",
+      "weight": "233 g",
+      "water_resistance": "IP68",
+      "update_years": 7,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": true,
+      "wireless_charging": true,
+      "photo_score": 98,
+      "performance_score": 95,
+      "gaming_score": 90,
+      "battery_score": 85,
+      "screen_score": 96,
+      "value_score": 68,
+      "price_min": 1050,
+      "price_max": 1290,
+      "refurb_price_min": 630,
+      "refurb_price_max": 970,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "iphone-16",
+      "brand_slug": "apple",
+      "model": "iPhone 16",
+      "os": "iOS",
+      "size_category": "compacto",
+      "screen_size": "6.1\" OLED",
+      "refresh_rate": "60 Hz",
+      "processor": "Apple A18",
+      "ram": "8 GB",
+      "storage": "128 GB",
+      "battery_mah": "3561 mAh",
+      "fast_charging": "20 W",
+      "main_camera": "48 MP",
+      "ultrawide_camera": "12 MP",
+      "telephoto": "—",
+      "front_camera": "12 MP",
+      "weight": "170 g",
+      "water_resistance": "IP68",
+      "update_years": 6,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": true,
+      "wireless_charging": true,
+      "photo_score": 90,
+      "performance_score": 92,
+      "gaming_score": 88,
+      "battery_score": 80,
+      "screen_score": 82,
+      "value_score": 68,
+      "price_min": 899,
+      "price_max": 999,
+      "refurb_price_min": 540,
+      "refurb_price_max": 750,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "galaxy-z-flip6",
+      "brand_slug": "samsung",
+      "model": "Galaxy Z Flip6",
+      "os": "Android",
+      "size_category": "compacto",
+      "screen_size": "6.7\" AMOLED plegable",
+      "refresh_rate": "120 Hz",
+      "processor": "Snapdragon 8 Gen 3 for Galaxy",
+      "ram": "12 GB",
+      "storage": "256 GB",
+      "battery_mah": "4000 mAh",
+      "fast_charging": "25 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "12 MP",
+      "telephoto": "—",
+      "front_camera": "10 MP",
+      "weight": "187 g",
+      "water_resistance": "IPX8",
+      "update_years": 7,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": true,
+      "wireless_charging": true,
+      "photo_score": 82,
+      "performance_score": 85,
+      "gaming_score": 80,
+      "battery_score": 72,
+      "screen_score": 85,
+      "value_score": 60,
+      "price_min": 1050,
+      "price_max": 1200,
+      "refurb_price_min": 630,
+      "refurb_price_max": 900,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "xiaomi-14t",
+      "brand_slug": "xiaomi",
+      "model": "Xiaomi 14T",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.67\" AMOLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Dimensity 8300-Ultra",
+      "ram": "12 GB",
+      "storage": "256 GB",
+      "battery_mah": "5000 mAh",
+      "fast_charging": "67 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "12 MP",
+      "telephoto": "50 MP",
+      "front_camera": "32 MP",
+      "weight": "193 g",
+      "water_resistance": "IP68",
+      "update_years": 4,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": false,
+      "wireless_charging": false,
+      "photo_score": 84,
+      "performance_score": 78,
+      "gaming_score": 75,
+      "battery_score": 82,
+      "screen_score": 78,
+      "value_score": 82,
+      "price_min": 400,
+      "price_max": 480,
+      "refurb_price_min": 240,
+      "refurb_price_max": 360,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "pixel-9a",
+      "brand_slug": "google",
+      "model": "Pixel 9a",
+      "os": "Android",
+      "size_category": "compacto",
+      "screen_size": "6.3\" OLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Google Tensor G4",
+      "ram": "8 GB",
+      "storage": "128 GB",
+      "battery_mah": "5100 mAh",
+      "fast_charging": "23 W",
+      "main_camera": "48 MP",
+      "ultrawide_camera": "13 MP",
+      "telephoto": "—",
+      "front_camera": "13 MP",
+      "weight": "186 g",
+      "water_resistance": "IP68",
+      "update_years": 7,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": true,
+      "wireless_charging": true,
+      "photo_score": 87,
+      "performance_score": 78,
+      "gaming_score": 68,
+      "battery_score": 82,
+      "screen_score": 80,
+      "value_score": 85,
+      "price_min": 480,
+      "price_max": 550,
+      "refurb_price_min": 290,
+      "refurb_price_max": 410,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "oneplus-12",
+      "brand_slug": "oneplus",
+      "model": "OnePlus 12",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.82\" AMOLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Snapdragon 8 Gen 3",
+      "ram": "16 GB",
+      "storage": "256 GB",
+      "battery_mah": "5400 mAh",
+      "fast_charging": "100 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "48 MP",
+      "telephoto": "64 MP",
+      "front_camera": "32 MP",
+      "weight": "220 g",
+      "water_resistance": "IP65",
+      "update_years": 4,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": false,
+      "wireless_charging": true,
+      "photo_score": 88,
+      "performance_score": 92,
+      "gaming_score": 90,
+      "battery_score": 88,
+      "screen_score": 90,
+      "value_score": 78,
+      "price_min": 800,
+      "price_max": 950,
+      "refurb_price_min": 480,
+      "refurb_price_max": 710,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "moto-razr-50",
+      "brand_slug": "motorola",
+      "model": "Motorola Razr 50",
+      "os": "Android",
+      "size_category": "compacto",
+      "screen_size": "6.9\" pOLED plegable",
+      "refresh_rate": "120 Hz",
+      "processor": "Dimensity 7300X",
+      "ram": "8 GB",
+      "storage": "256 GB",
+      "battery_mah": "4200 mAh",
+      "fast_charging": "30 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "13 MP",
+      "telephoto": "—",
+      "front_camera": "32 MP",
+      "weight": "189 g",
+      "water_resistance": "IPX8",
+      "update_years": 3,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": false,
+      "wireless_charging": true,
+      "photo_score": 75,
+      "performance_score": 68,
+      "gaming_score": 62,
+      "battery_score": 75,
+      "screen_score": 80,
+      "value_score": 74,
+      "price_min": 550,
+      "price_max": 650,
+      "refurb_price_min": 330,
+      "refurb_price_max": 490,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "oppo-reno-12",
+      "brand_slug": "oppo",
+      "model": "OPPO Reno 12",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.7\" AMOLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Dimensity 7300-Energy",
+      "ram": "12 GB",
+      "storage": "256 GB",
+      "battery_mah": "5800 mAh",
+      "fast_charging": "80 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "8 MP",
+      "telephoto": "32 MP",
+      "front_camera": "50 MP",
+      "weight": "186 g",
+      "water_resistance": "IP65",
+      "update_years": 3,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": false,
+      "wireless_charging": false,
+      "photo_score": 78,
+      "performance_score": 70,
+      "gaming_score": 65,
+      "battery_score": 85,
+      "screen_score": 78,
+      "value_score": 80,
+      "price_min": 430,
+      "price_max": 500,
+      "refurb_price_min": 260,
+      "refurb_price_max": 375,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "honor-200",
+      "brand_slug": "honor",
+      "model": "HONOR 200",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.7\" AMOLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Snapdragon 7 Gen 3",
+      "ram": "12 GB",
+      "storage": "512 GB",
+      "battery_mah": "5200 mAh",
+      "fast_charging": "66 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "12 MP",
+      "telephoto": "50 MP",
+      "front_camera": "50 MP",
+      "weight": "187 g",
+      "water_resistance": "IP54",
+      "update_years": 4,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": false,
+      "wireless_charging": false,
+      "photo_score": 82,
+      "performance_score": 74,
+      "gaming_score": 68,
+      "battery_score": 80,
+      "screen_score": 80,
+      "value_score": 82,
+      "price_min": 480,
+      "price_max": 550,
+      "refurb_price_min": 290,
+      "refurb_price_max": 410,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "nothing-phone-2",
+      "brand_slug": "nothing",
+      "model": "Nothing Phone (2)",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.7\" AMOLED",
+      "refresh_rate": "120 Hz",
+      "processor": "Snapdragon 8+ Gen 1",
+      "ram": "12 GB",
+      "storage": "256 GB",
+      "battery_mah": "4700 mAh",
+      "fast_charging": "45 W",
+      "main_camera": "50 MP",
+      "ultrawide_camera": "50 MP",
+      "telephoto": "—",
+      "front_camera": "32 MP",
+      "weight": "201 g",
+      "water_resistance": "IP54",
+      "update_years": 3,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": false,
+      "wireless_charging": true,
+      "photo_score": 78,
+      "performance_score": 80,
+      "gaming_score": 78,
+      "battery_score": 78,
+      "screen_score": 82,
+      "value_score": 76,
+      "price_min": 500,
+      "price_max": 600,
+      "refurb_price_min": 300,
+      "refurb_price_max": 450,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    },
+    {
+      "slug": "sony-xperia-1-vi",
+      "brand_slug": "sony",
+      "model": "Sony Xperia 1 VI",
+      "os": "Android",
+      "size_category": "normal",
+      "screen_size": "6.5\" OLED 21:9",
+      "refresh_rate": "120 Hz",
+      "processor": "Snapdragon 8 Gen 3",
+      "ram": "12 GB",
+      "storage": "256 GB",
+      "battery_mah": "5000 mAh",
+      "fast_charging": "30 W",
+      "main_camera": "48 MP",
+      "ultrawide_camera": "48 MP",
+      "telephoto": "48 MP",
+      "front_camera": "12 MP",
+      "weight": "192 g",
+      "water_resistance": "IP68",
+      "update_years": 4,
+      "has_5g": true,
+      "has_nfc": true,
+      "has_esim": false,
+      "wireless_charging": true,
+      "photo_score": 90,
+      "performance_score": 88,
+      "gaming_score": 82,
+      "battery_score": 78,
+      "screen_score": 88,
+      "value_score": 55,
+      "price_min": 1250,
+      "price_max": 1400,
+      "refurb_price_min": 750,
+      "refurb_price_max": 1050,
+      "price_verified": false,
+      "price_checked_at": null,
+      "is_demo_data": true,
+      "active": true,
+      "links": [
+        {
+          "retailer_slug": "amazon",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "mediamarkt",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "pccomponentes",
+          "condition": "nuevo",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "backmarket",
+          "condition": "reacondicionado",
+          "refurb_grade": "Muy bueno",
+          "url": "#demo"
+        },
+        {
+          "retailer_slug": "cex",
+          "condition": "reacondicionado",
+          "refurb_grade": "Bueno",
+          "url": "#demo"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /smartphonematch-api/
+Disallow: /legal/legal-config.php
+Disallow: /moviles-404.php
+Disallow: /set-lang.php
+
+Sitemap: http://localhost/sitemap.php

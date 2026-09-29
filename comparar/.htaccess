@@ -1,0 +1,8 @@
+# /comparar/galaxy-s26-ultra-vs-iphone-18-pro-max -> index.php?a=...&b=...
+# Ruta histórica sin prefijo de idioma — se mantiene en español para no
+# romper enlaces existentes. La ruta canónica nueva es /es/comparar/... o
+# /en/compare/....
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-z0-9-]+)-vs-([a-z0-9-]+)/?$ index.php?a=$1&b=$2&lang=es [L,QSA]
